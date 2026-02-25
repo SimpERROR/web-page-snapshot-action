@@ -4,6 +4,9 @@
 
 该 Action 会启动无头浏览器 (Headless Chrome)，访问指定 URL，截取全屏图片。
 
+## 📷 效果展示
+![示例图片](https://raw.githubusercontent.com/SimpERROR/web-page-snapshot-action/refs/heads/gh-pages/latest.png)
+
 ## ⚙️ 输入参数 (Inputs)
 
 | 参数名 | 必填 | 默认值 | 描述 |

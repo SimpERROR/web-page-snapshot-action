@@ -3,6 +3,39 @@ import * as puppeteer from 'puppeteer-core';
 import * as fs from 'fs';
 import * as path from 'path';
 
+async function waitForPageStable(page: puppeteer.Page, timeout: number = 30000): Promise<void> {
+  const startTime = Date.now();
+  
+  await page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 15000 }).catch(() => {});
+  
+  await page.waitForNetworkIdle({ idleTime: 1000, timeout: 15000 }).catch(() => {});
+  
+  const checkStable = async (): Promise<boolean> => {
+    const isStable = await page.evaluate(() => {
+      const navEntry = performance.getEntriesByType('navigation')[0] as any;
+      return (
+        document.readyState === 'complete' &&
+        navEntry?.loadEventEnd > 0
+      );
+    });
+    return isStable;
+  };
+  
+  while (Date.now() - startTime < timeout) {
+    const isStable = await checkStable();
+    if (isStable) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      const stillStable = await checkStable();
+      if (stillStable) {
+        return;
+      }
+    }
+    await new Promise(resolve => setTimeout(resolve, 500));
+  }
+  
+  core.warning('Page stability check timed out, proceeding with screenshot');
+}
+
 async function run() {
   try {
     const website = core.getInput('website', { required: true });
@@ -25,7 +58,10 @@ async function run() {
     });
     const page = await browser.newPage();
     
-    await page.goto(website, { waitUntil: 'networkidle2' });
+    await page.goto(website, { waitUntil: 'domcontentloaded' });
+    
+    core.info('Waiting for page to stabilize...');
+    await waitForPageStable(page);
     
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
     const snapshotDir = path.join(process.cwd(), 'snapshots');
