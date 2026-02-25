@@ -1,0 +1,24 @@
+name: 'Web Page Snapshot Action'
+description: 'An action which can snapshot a web page.'
+author: 'SimpERROR_'
+
+inputs:
+  website:
+    description: 'The website to snapshot.'
+    required: true
+    default: 'https://www.bilibili.com/video/BV1GJ411x7h7'
+
+outputs:
+  snapshot-path:
+    description: 'The path to the saved snapshot image.'
+    value: ${{ steps.run-step.outputs.snapshot-path }}
+  status:
+    description: 'The status of the snapshot operation (success/failed).'
+    value: ${{ steps.run-step.outputs.status }}
+  image-size:
+    description: 'The size of the snapshot image (width x height).'
+    value: ${{ steps.run-step.outputs.image-size }}
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
