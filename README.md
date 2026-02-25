@@ -5,6 +5,8 @@
 该 Action 会启动无头浏览器 (Headless Chrome)，访问指定 URL，截取全屏图片。
 
 ## 📷 效果展示
+> 悄悄告诉你…… 其实这张图片会在每日 0:00 自动更新 ( •̀ ω •́ )✧  尽管我也不知道有什么用……
+
 ![示例图片](https://raw.githubusercontent.com/SimpERROR/web-page-snapshot-action/refs/heads/gh-pages/latest.png)
 
 ## ⚙️ 输入参数 (Inputs)
