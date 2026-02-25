@@ -6,6 +6,8 @@ on:
   pull_request: 
     branches: ["main"]
   workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   test:
@@ -27,7 +29,7 @@ jobs:
         id: snapshot_step
         uses: ./
         with:
-          website: 'https://www.github.com'
+          website: 'https://mai.chongxi.us/?share=true'
         env:
           PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
           
