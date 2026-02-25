@@ -18,6 +18,9 @@ outputs:
   image-size:
     description: 'The size of the snapshot image (width x height).'
     value: ${{ steps.run-step.outputs.image-size }}
+  time:
+    description: 'The time when the snapshot was taken.'
+    value: ${{ steps.run-step.outputs.time }}
 
 runs:
   using: 'node20'

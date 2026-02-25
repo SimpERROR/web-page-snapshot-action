@@ -6,9 +6,22 @@ import * as path from 'path';
 async function run() {
   try {
     const website = core.getInput('website', { required: true });
-    
+
+    const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/google-chrome-stable';
+
+    core.info(`Launching browser with executable path: ${executablePath}`);
+
     const browser = await puppeteer.launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      executablePath: executablePath,
+      args: [
+        '--no-sandbox', 
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
+        '--disable-gpu'
+      ]
     });
     const page = await browser.newPage();
     
