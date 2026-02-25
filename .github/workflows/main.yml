@@ -31,10 +31,15 @@ jobs:
         env:
           PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
           
-      - name: 上传截图结果
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: 重命名截图为固定文件名
+        run: |
+          LATEST_FILE=$(ls -t snapshots/*.png | head -n 1)
+          cp "$LATEST_FILE" snapshots/latest.png
+
+      - name: 部署到 GitHub Pages (覆盖旧图)
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          name: website-snapshots
-          path: snapshots/*.png
-          retention-days: 5
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./snapshots
+          publish_branch: gh-pages
+          keep_files: true
