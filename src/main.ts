@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import * as puppeteer from 'puppeteer';
+import * as puppeteer from 'puppeteer-core';
 import * as fs from 'fs';
 import * as path from 'path';
 
