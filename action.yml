@@ -1,6 +1,9 @@
 name: 'Web Page Snapshot Action'
 description: 'An action which can snapshot a web page.'
 author: 'SimpERROR_'
+branding: 
+  icon: camera
+  color: blue
 
 inputs:
   website:
