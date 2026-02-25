@@ -21,7 +21,7 @@ jobs:
         with:
           chrome-version: stable
 
-      - run: npm install & build
+      - run: npm ci && npm run build
       
       - name: 生成网页快照
         id: snapshot_step
