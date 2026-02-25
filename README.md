@@ -1,5 +1,7 @@
 # 📸 Web Page Snapshot Action
 
+**Here is the [English version](https://github.com/SimpERROR/web-page-snapshot-action/blob/main/README-EN.md).**
+
 一个基于 **Puppeteer** 的 GitHub Action，用于自动抓取网页截图并生成图片资源。
 
 该 Action 会启动无头浏览器 (Headless Chrome)，访问指定 URL，截取全屏图片。
